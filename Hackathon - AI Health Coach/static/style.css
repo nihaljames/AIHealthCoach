@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+}
+
+h1, h2, h3, h4 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form select {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.advice {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    line-height: 1.6;
+}
+
+.advice ul {
+    margin-left: 20px;
+}
+
+.advice p, .advice li {
+    margin: 10px 0;
+}

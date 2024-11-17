@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Coach</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <h1>AI Health Coach</h1>
+    <form method="POST">
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required><br><br>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="exercise_hours">Average Hours Exercised Per Week:</label>
+        <input type="number" id="exercise_hours" name="exercise_hours" required step="0.1"><br><br>
+
+        <label for="resting_heart_rate">Resting Heart Rate (bpm):</label>
+        <input type="number" id="resting_heart_rate" name="resting_heart_rate" required><br><br>
+
+        <button type="submit">Get Advice</button>
+    </form>
+
+    {% if advice %}
+
+    <h3>Submitted Data</h3>
+    <ul>
+        <li>Height: {{ user_data.height }} cm</li>
+        <li>Weight: {{ user_data.weight }} kg</li>
+        <li>Age: {{ user_data.age }} years</li>
+        <li>Gender: {{ user_data.gender }}</li>
+        <li>Exercise Hours Per Week: {{ user_data.exercise_hours }}</li>
+        <li>Resting Heart Rate: {{ user_data.resting_heart_rate }} bpm</li>
+    </ul>
+    <h2>Your Personalized Advice</h2>
+    <div id="diet-advice"></div>
+    <div id="workout-advice"></div>
+    
+    <script>
+        // Set the AI-generated advice as a JavaScript variable
+        const fullAdvice = `{{ advice}}`;  // Escape special characters for JS
+    
+        // Split the advice into "Diet Plan" and "Workout Plan" based on keywords
+        const dietIndex = fullAdvice.indexOf("Diet Plan:");
+        const workoutIndex = fullAdvice.indexOf("Workout Plan:");
+    
+        // Extract the relevant sections
+        const dietAdvice = fullAdvice.substring(dietIndex, workoutIndex).trim();
+        const workoutAdvice = fullAdvice.substring(workoutIndex).trim();
+    
+        // Inject the formatted advice into the HTML
+        document.getElementById("diet-advice").innerHTML = `<h3>Diet Plan</h3><p>${dietAdvice.replace(/\n/g, "</p><p>")}</p>`;
+        document.getElementById("workout-advice").innerHTML = `<h3>Workout Plan</h3><p>${workoutAdvice.replace(/\n/g, "</p><p>")}</p>`;
+    </script>
+    {% endif %}
+</body>
+</html>
